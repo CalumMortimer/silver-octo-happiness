@@ -5,14 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**A class representing a bubble sorting algorithm.
- * values array represents the numbers to be sorted
- * compare1 represents the current position being considered in the list
- * maxCount represents how much of the array is currently unsorted
- * makeRed represents when cells should be highlighted red (unsorted values found)
- * returnToYellow repesents the state after the cells have been swapped around (after makeRed)
- * isSolved represents when the values array has been sorted
- * swapMadeThisCycle represents if a swap has occurred through the current loop of the array,
- * if none is detected, the list hsa been sorted.
+ * values - array of integers holding the numbers to be sorted
+ * compare1 - the current position of the sort in the list
+ * maxCount - the fraction of the list which remains unsorted
+ * makeRed - boolean which indicates if the GUI should highlight identified unsorted cells red
+ * returnToYellow - boolean which indicates if the GUI should highlight just-sorted cells yellow
+ * isSolved - boolean representing if the list has been sorted
+ * swapMadeThisCycle - boolean representing if a swap has been made during the current pass
  */
 public class BubbleSort{
     private Integer[] values = {1,11,16,7,10,14,2,13,12,4,5,9,19,17,3,6,15,8,0,18};
@@ -35,7 +34,7 @@ public class BubbleSort{
         return values[index];
     }
 
-    /**Return the location of the first number being considered*/
+    /**Return the location of the first number being considered for swapping*/
     public int getCompare1()
     {
         return compare1;
@@ -58,10 +57,38 @@ public class BubbleSort{
         }
     }
 
-    /**perform an iteration of the sorting algorithm*/
+    /**Checks if the array has been solved. Method is called at the end of each pass of the array.
+     * If no swaps have been made, the array is considered solved.
+     */
+    private void checkIfSolved()
+    {
+        if (!swapMadeThisCycle)
+        {
+            isSolved = true;
+        }
+    }
+
+    /**Checks if the end of the unsorted portion of the array has been reached. If it has,
+     * compare1 is set to 0 and the unsorted portion of the array is decreased by 1.
+     * checkIfSolved is called to establish if the array has been fully sorted and
+     * swapMadeThisCycle is reset to false.
+     */
+    private void endOfListCheck()
+    {
+        if (compare1 >= (maxCount - 1)) {
+            compare1 = 0;
+            //Every loop of the list, maxCount decreases by 1
+            maxCount--;
+            //List solved when no swap has been made this cycle
+            checkIfSolved();
+            swapMadeThisCycle = false;
+        }
+    }
+
+    /**Perform an iteration of the sorting algorithm.*/
     public void iterate()
     {
-        //First mode of iteration - no out of order cells found yet
+        //First mode of iteration - no out of order cells found so far
         if (!(makeRed||returnToYellow))
         {
             checkValues();
@@ -81,16 +108,7 @@ public class BubbleSort{
         {
             returnToYellow = false;
             compare1++;
-            if (compare1 >= (maxCount - 1)) {
-                compare1 = 0;
-                //Every loop of the list, maxCount decreases by 1
-                maxCount--;
-                //List solved when maxCount == 1
-                if ((maxCount == 1)||(!swapMadeThisCycle)) {
-                    isSolved = true;
-                }
-                swapMadeThisCycle = false;
-            }
+            endOfListCheck();
         }
     }
 
@@ -109,19 +127,7 @@ public class BubbleSort{
         {
             //Move along the list
             compare1++;
-            //Reset compare1 if out of unsorted scope
-            if (compare1>=(maxCount-1))
-            {
-                compare1 = 0;
-                //Every loop of the list, maxCount decreases by 1
-                maxCount--;
-                //List solved when maxCount == 1
-                if ((maxCount==1)||(!swapMadeThisCycle))
-                {
-                    isSolved = true;
-                }
-                swapMadeThisCycle = false;
-            }
+            endOfListCheck();
         }
     }
 }
