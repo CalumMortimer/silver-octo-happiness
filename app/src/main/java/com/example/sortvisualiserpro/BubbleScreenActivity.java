@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.os.CountDownTimer;
 
+/**A class representing the bubble sort screen page
+ * A bubble sort object is instantiated from the BubbleSort class
+ * The textViews on the activity screen are stored as a 20 element array*/
 public class BubbleScreenActivity extends AppCompatActivity {
 
     BubbleSort myBubbleSort = new BubbleSort();
@@ -15,13 +18,19 @@ public class BubbleScreenActivity extends AppCompatActivity {
             R.id.textView15,R.id.textView16,R.id.textView17,R.id.textView18,R.id.textView19,
             R.id.textView20};
 
+    /**Initiates the activity, sets the page title to "BUBBLE SORT" and refreshes the views from
+     * the BubbleSort object
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bubble_screen);
+        TextView pageTitle = (TextView)findViewById(R.id.textView);
+        pageTitle.setText("BUBBLE SORT");
         refreshView();
     }
 
+    /**"paints" the 20 textViews on the activity a particular colour*/
     private void paintWholeArray(int color)
     {
         for (int i=0;i<20;i++)
