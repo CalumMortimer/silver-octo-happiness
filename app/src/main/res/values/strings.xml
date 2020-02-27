@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SortVisualiserPro</string>
+    <string name="bubble_sort">BUBBLE SORT</string>
+    <string name="selection_sort">SELECTION SORT</string>
+    <string name="insertion_sort">INSERTION SORT</string>
+    <string name="step_button">STEP</string>
+    <string name="auto_button">AUTO</string>
+    <string name="stop_button">STOP</string>
 </resources>
