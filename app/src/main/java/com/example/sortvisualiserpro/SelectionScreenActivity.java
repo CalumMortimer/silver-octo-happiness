@@ -77,9 +77,9 @@ public class SelectionScreenActivity extends AppCompatActivity {
         }
         else
         {
-            paintCell(0xFFFF0000,mySelectionSort.getLowestScore());
             paintCell(0xFFFFFF00,mySelectionSort.getTargetValue());
             paintCell(0xFFFFFF00,mySelectionSort.getCurrentValue());
+            paintCell(0xFFFF0000,mySelectionSort.getLowestScore());
         }
     }
 
